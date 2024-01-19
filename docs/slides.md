@@ -118,7 +118,7 @@ class: text-center
 
 # Contest @NeurIPS 23 
 
-![image-mpc](https://web.metattri.com/i/2023/11/09/654bc5ae9136f.png)
+![image-mpc](https://lsky.metattri.com/i/2023/11/09/654bc5ae9136f.png)
 
 ---
 
@@ -226,7 +226,7 @@ layout: two-cols
 5. agent 可以击杀其他 agents（AOE），被击杀的 agent 50 步后复活
 
 **TODO**
- 
+
 > 谁的 50 步？击杀者的 50 步？击杀者的 50 步后，被击杀者复活在哪里？
 > 
 >  收苹果的 reward 是多少？  
@@ -281,6 +281,7 @@ layout: two-cols
 2. agent 可以拆墙（AOE），拆墙后墙消失，墙上的资源消失
 3. agent 可以击杀其他 agents（AOE），被击杀的 agent 永久消失
    
+
 **Reword**（对于每个 agent）
 
 | Event      | Rreward                                           |
