@@ -1,0 +1,85 @@
+name: Deploy Slidev with GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+    paths:
+      - "$SLIDEV_PATH/**"
+      - ".github/workflows/slidev-gh-pages.yml"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Default values for the inputs to this workflow
+env:
+  SLIDEV_PATH: ${{ vars.SLIDEV_PATH }}
+  SLIDES_NAME: slides.md
+  ENABLE_DOWNLOAD: fasle
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: slidev
+    env:
+      SLIDES_NAME: ${{ vars.SLIDES_NAME }}
+      ENABLE_DOWNLOAD: ${{ vars.ENABLE_DOWNLOAD }}
+      SPA_OUTPUT_DIR: _site
+    # Set the working directory for `run` steps
+    defaults:
+      run:
+        working-directory: ${{ env.SLIDEV_PATH }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Slidev
+        run: npm install
+
+      - name: Build SPA
+        run: |
+          REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+          npx slidev build ${{ env.SLIDES_NAME }} --base /$REPO_NAME/ --out ${{ env.SPA_OUTPUT_DIR }} --download ${{ env.ENABLE_DOWNLOAD }}
+
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX ${{ env.SPA_OUTPUT_DIR }} | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.SLIDEV_PATH }}/${{ env.SPA_OUTPUT_DIR }}/
+
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -2,11 +2,20 @@
 theme: academic
 layout: cover
 class: text-white
+coverDate: 2023/11/09
 coverAuthor: 胡逸同
 coverAuthorUrl: https://yitong-hu.metattri.com
 coverBackgroundUrl: https://images.aicrowd.com/uploads/ckeditor/pictures/1170/content_animatedCollage_alpha.gif
 coverBackgroundSource: Melting Pot Contest
 coverBackgroundSourceUrl: https://www.aicrowd.com/challenges/meltingpot-challenge-2023/insights
+download: https://wiederholung.github.io/pub/slide/melting_pot_research_report-export.pdf
+export:
+  format: pdf
+  timeout: 30000
+  dark: false
+  withClicks: true
+  withToc: true
+hideInToc: true
 fonts:
   local: Montserrat, Roboto Mono, Roboto Slab # local fonts are used for legal reasons for deployment to https://slidev-theme-academic.alexeble.de and only set up for the example project, remove this line for your project to automatically have fonts imported from Google
 themeConfig:
@@ -430,4 +439,4 @@ layout: end
 
 ## Thank you!
 
-> 胡逸同, 2023/11/9
+> [胡逸同](https://yitong-hu.metattri.com), 2023/11/09
