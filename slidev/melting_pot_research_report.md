@@ -50,11 +50,12 @@ info: |
 <Pagination classNames="text-gray-300" />
 
 ---
-layout: table-of-contents
-hideInToc: false
+hideInToc: true
 ---
 
 # 目录
+
+<Toc maxDepth = 2 /> 
 
 ---
 layout: index
@@ -435,8 +436,9 @@ indexEntries:
 
 ---
 layout: end
+hideInToc: true
 ---
 
-## Thank you!
+# Thank you!
 
 > [胡逸同](https://yitong-hu.metattri.com), 2023/11/09
