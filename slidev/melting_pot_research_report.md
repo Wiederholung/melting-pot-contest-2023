@@ -128,7 +128,7 @@ class: text-center
 
 # Contest @NeurIPS 23 
 
-![image-mpc](https://lsky.metattri.com/i/2023/11/09/654bc5ae9136f.png)
+![image-mpc](https://s3-pic.metattri.com/2025/03/f630989437e0ef80046db205d448a717.png)
 
 ---
 
